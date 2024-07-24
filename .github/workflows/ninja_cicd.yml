@@ -1,28 +1,22 @@
 name: Top 10 Jobs
-
 on:
   schedule:
-    - cron: '0 */6 * * *'
-
+    - cron: 0 */6 * * *
 jobs:
   run-daily:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-    
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.x'
-        
-    - name: Install dependencies
-      run: pip install -r requirements.txt
-        
-    - name: Run top 10 cron job.
-      env:
-        apicode: ${{ secrets.APICODE }}
-        discord_webhook_stats: ${{ secrets.DISCORD_WEBHOOK_STATS }}
-        discord_webhook_test: ${{ secrets.DISCORD_WEBHOOK_TEST }}
-      run: python main.py
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run top 10 cron job.
+        env:
+          apicode: ${{ secrets.APICODE }}
+          discord_webhook_stats: ${{ secrets.DISCORD_WEBHOOK_STATS }}
+          discord_webhook_test: ${{ secrets.DISCORD_WEBHOOK_TEST }}
+        run: python main.py
