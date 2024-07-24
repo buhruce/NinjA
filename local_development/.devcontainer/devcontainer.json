@@ -1,7 +1,6 @@
 {
     "name": "NinjA",
     "context": "..",
-    // We are purposefully using a different dockerfile for local development.
     "dockerFile": "../Dockerfile",
     "customizations": {
         "vscode": {
