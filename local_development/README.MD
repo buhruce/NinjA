@@ -1,7 +1,7 @@
 I think development should be IDE agnostic. This directory will be used to store my vscode/docker settings. Below is a shell script I use to clone this repo and set up vscode. If you prefer a different development environment, ignore this.
 
 
-```shell
+```bash
 buhruce@macbook Desktop % which ninja
 /usr/local/bin/ninja
 buhruce@macbook Desktop % cat /usr/local/bin/it
