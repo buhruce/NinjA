@@ -1,0 +1,19 @@
+{
+    "name": "NinjA",
+    "context": "..",
+    // We are purposefully using a different dockerfile for local development.
+    "dockerFile": "../Dockerfile",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python",
+                "ms-python.black-formatter"
+            ],
+            "settings": {
+                "python.formatting.provider": "Black-Formatter",
+                "editor.formatOnSave": true,
+                "python.pythonPath": "/usr/local/bin/python"
+            }
+        }
+    }
+}
