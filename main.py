@@ -2,6 +2,30 @@ from api_libraries import discord, earthempires
 from prettytable import PrettyTable
 
 
+def announce_game_info(round, start_date_str, end_date_str):
+    start_date = datetime.datetime.strptime(start_date_str, "%Y-%m-%d %H:%M")
+    end_date = datetime.datetime.strptime(end_date_str, "%Y-%m-%d %H:%M")
+    current_date = datetime.datetime.utcnow()
+
+    total_days = (end_date - start_date).total_seconds() / (24 * 60 * 60)
+    total_turns = total_days * 24 * 60 // 25
+
+    days_passed = (current_date - start_date).total_seconds() / (24 * 60 * 60)
+    days_left = total_days - days_passed
+
+    turns_left = total_turns - (days_passed * 24 * 60 // 25)
+
+    start_date_fmt = start_date.strftime("%b %d %H:%M")
+    end_date_fmt = end_date.strftime("%b %d %H:%M")
+    
+    announcement = (
+        f"Round {round} {start_date_fmt} - {end_date_fmt}\n"
+        f"There are {days_left:.1f} days left\n"
+        f"Approximately {turns_left:.0f} turns left to give."
+    )
+    return announcement
+
+
 def abbreviate_text(text, max_length):
     """
     Abbreviates the given text if it exceeds the maximum length.
