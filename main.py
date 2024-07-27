@@ -74,10 +74,12 @@ def main():
     This function retrieves land data from the EE API, builds tables with clan and country land statistics,
     and sends the formatted tables as messages to a Discord channel.
     """
+    server_id, round, start, end = earthempires.coop_info()
+    announce = announce_game_info(round, start, end)
+    discord.msg_discord_test(announce, "Cooperation Server")
     land_table = earthempires.get_land_from_ranks(
-        "22"
-    )  # 22 is the server ID for the Cooperation server.
-
+        server_id
+    )
     clan_land_stats = earthempires.clan_land(land_table)
     clan_land_stats = clan_land_stats.head(10)
     clan_land_table = build_clan_table(clan_land_stats)
