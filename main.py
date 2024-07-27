@@ -76,7 +76,7 @@ def main():
     """
     server_id, round, start, end = earthempires.coop_info()
     announce = announce_game_info(round, start, end)
-    discord.msg_discord_test(announce, "Cooperation Server")
+    discord.msg_discord_stats(announce, "Cooperation Server")
     land_table = earthempires.get_land_from_ranks(
         server_id
     )
