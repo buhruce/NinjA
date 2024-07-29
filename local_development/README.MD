@@ -4,7 +4,7 @@ I think development should be IDE agnostic. This directory will be used to store
 ```bash
 buhruce@macbook Desktop % which ninja
 /usr/local/bin/ninja
-buhruce@macbook Desktop % cat /usr/local/bin/it
+buhruce@macbook Desktop % cat /usr/local/bin/ninja
 rm -Rf ~/Desktop/ninja/
 cd ~/Desktop
 git clone git@github.com:buhruce/ninja.git
