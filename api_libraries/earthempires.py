@@ -6,16 +6,31 @@ import io
 apicode = os.environ.get("apicode")
 
 
-def get_land_from_ranks(server_id):
+def get_rank_from_server(server_id):
     response = requests.get(
         f"http://www.earthempires.com/ranks_feed?apicode={apicode}&serverid={server_id}&style=2"
     )
+    # Standard output for a country:
+    # 22,5004,551,36,slip,53369,21053233,xNAx,F,0,0,0,1,0,0
+    return response
 
+
+def get_govt_from_ranks(ranks):
+    data = io.StringIO(ranks.text)
+    df = pd.read_csv(data, header=None)
+    gov_counts = df[8].value_counts()
+    gov_identifier_count = pd.DataFrame(gov_counts).reset_index()
+    gov_identifier_count.columns = ["Gov", "Quantity"]
+    gov_identifier_count = gov_identifier_count.to_string(index=False)
+    return gov_identifier_count
+
+
+def get_land_from_ranks(ranks):
     # Load the data into a DataFrame
-    data = io.StringIO(response.text)
+    data = io.StringIO(ranks.text)
     df = pd.read_csv(data, header=None)
 
-    # Select the specified columns: 4, 5, 6, 8 (0-indexed in pandas)
+    # Select the specified columns: 4, 5, 6, 8, 9 (0-indexed in pandas)
     selected_columns = df.iloc[:, [3, 4, 5, 7, 14]]
     # Filter out rows where column 8 is empty or column 15 is 1
     filtered_df = selected_columns[
@@ -34,7 +49,6 @@ def clan_land(df):
     total_land_per_clan_sorted = total_land_per_clan.sort_values(
         by="Land", ascending=False
     )
-
     return total_land_per_clan_sorted
 
 

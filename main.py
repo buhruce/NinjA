@@ -18,7 +18,7 @@ def announce_game_info(round, start_date_str, end_date_str):
 
     start_date_fmt = start_date.strftime("%b %d %H:%M")
     end_date_fmt = end_date.strftime("%b %d %H:%M")
-    
+
     announcement = (
         f"```Round {round} {start_date_fmt} - {end_date_fmt}\n"
         f"There are {days_left:.1f} days left\n"
@@ -68,18 +68,23 @@ def build_country_table(country_land_stats):
 
 
 def main():
-    """
-    Retrieves land data, builds tables, and sends messages to Discord.
-
-    This function retrieves land data from the EE API, builds tables with clan and country land statistics,
-    and sends the formatted tables as messages to a Discord channel.
-    """
+    # Get server info.
     server_id, round, start, end = earthempires.coop_info()
     announce = announce_game_info(round, start, end)
     discord.msg_discord_stats(announce, "Cooperation Server")
-    land_table = earthempires.get_land_from_ranks(
-        server_id
-    )
+
+    # Get server ranks.
+    ranks = earthempires.get_rank_from_server(server_id)
+
+    # Get government stats.
+    gov_stats = earthempires.get_govt_from_ranks(ranks)
+    formatted_table_with_title = f"```{gov_stats}```"
+    discord.msg_discord_stats(formatted_table_with_title, "Government Totals")
+
+    # Get land stats.
+    land_table = earthempires.get_land_from_ranks(ranks)
+
+    # Get clan land stats.
     clan_land_stats = earthempires.clan_land(land_table)
     clan_land_stats = clan_land_stats.head(10)
     clan_land_table = build_clan_table(clan_land_stats)
@@ -87,6 +92,7 @@ def main():
     formatted_table_with_title = f"```{formatted_data}```"
     discord.msg_discord_stats(formatted_table_with_title, "top 10 clans | land")
 
+    # Get country land stats.
     country_land_stats = earthempires.player_land(land_table)
     country_land_stats = country_land_stats.head(10)
     country_land_table = build_country_table(country_land_stats)
