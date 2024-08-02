@@ -86,20 +86,20 @@ def main():
 
     # Get clan land stats.
     clan_land_stats = earthempires.clan_land(land_table)
-    clan_land_stats = clan_land_stats.head(10)
+    clan_land_stats = clan_land_stats.head(5)
     clan_land_table = build_clan_table(clan_land_stats)
     formatted_data = clan_land_table.get_string()
     formatted_table_with_title = f"```{formatted_data}```"
-    discord.msg_discord_stats(formatted_table_with_title, "top 10 clans | land")
+    discord.msg_discord_stats(formatted_table_with_title, "top 5 clans | land")
 
     # Get country land stats.
     country_land_stats = earthempires.player_land(land_table)
-    country_land_stats = country_land_stats.head(10)
+    country_land_stats = country_land_stats.head(15)
     country_land_table = build_country_table(country_land_stats)
     formatted_data_countries = country_land_table.get_string()
     formatted_table_with_title_players = f"```{formatted_data_countries}```"
     discord.msg_discord_stats(
-        formatted_table_with_title_players, "top 10 countries | land"
+        formatted_table_with_title_players, "top 15 countries | land"
     )
 
 
