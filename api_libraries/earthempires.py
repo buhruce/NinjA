@@ -54,8 +54,8 @@ def clan_land(df):
 
 def player_land(df):
     df.columns = ["Number", "Country", "Land", "Clan"]
-    # Fill empty country names with the player number.
-    df["Country"].fillna(df["Number"].astype(str), inplace=True)
+    # Replace blank country names with their number.
+    df["Country"].fillna("# " + df["Number"].astype(str), inplace=True)
     total_land_per_player = df.groupby("Country")["Land"].sum().reset_index()
     total_land_per_player_sorted = total_land_per_player.sort_values(
         by="Land", ascending=False
