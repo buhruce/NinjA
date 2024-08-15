@@ -9,12 +9,12 @@ def announce_game_info(round, start_date_str, end_date_str):
     current_date = datetime.datetime.utcnow()
 
     total_days = (end_date - start_date).total_seconds() / (24 * 60 * 60)
-    total_turns = total_days * 24 * 60 // 25
+    total_turns = total_days * 24 * 60 // 24
 
     days_passed = (current_date - start_date).total_seconds() / (24 * 60 * 60)
     days_left = total_days - days_passed
 
-    turns_left = total_turns - (days_passed * 24 * 60 // 25)
+    turns_left = total_turns - (days_passed * 24 * 60 // 24)
 
     start_date_fmt = start_date.strftime("%b %d %H:%M")
     end_date_fmt = end_date.strftime("%b %d %H:%M")
