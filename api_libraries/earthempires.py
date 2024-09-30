@@ -67,6 +67,6 @@ def player_land(df):
 def coop_info():
     server_id = "22"
     round = "3"
-    start = "2024-10-01 00:00"
-    end = "2024-11-29 23:59"
+    start = "2024-10-04 00:00"
+    end = "2024-12-02 23:59"
     return server_id, round, start, end
