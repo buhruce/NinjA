@@ -21,7 +21,7 @@ def announce_game_info(round, start_date_str, end_date_str):
 
     announcement = (
         f"```Round {round} {start_date_fmt} - {end_date_fmt}\n"
-        f"There are {days_left:.1f} days left\n"
+        f"There are {days_left:.1f} days left.\n"
         f"Approximately {turns_left:.0f} turns left to give.```"
     )
     return announcement
