@@ -76,10 +76,15 @@ def main():
     # Get server ranks.
     ranks = earthempires.get_rank_from_server(server_id)
 
+    # Get country status counts
+    status_counts = earthempires.get_country_status_count(ranks)
+    status_msg = f"```Human Countries: {status_counts['human']}\nNPC Countries: {status_counts['npc']}\nTotal: {status_counts['total']}```"
+    discord.msg_discord_stats(status_msg, "Country Status")
+
     # Get government stats.
     gov_stats = earthempires.get_govt_from_ranks(ranks)
     formatted_table_with_title = f"```{gov_stats}```"
-    discord.msg_discord_stats(formatted_table_with_title, "Government Totals")
+    discord.msg_discord_stats(formatted_table_with_title, "Human Government Totals")
 
     # Get land stats.
     land_table = earthempires.get_land_from_ranks(ranks)
