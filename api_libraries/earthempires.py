@@ -18,7 +18,9 @@ def get_rank_from_server(server_id):
 def get_govt_from_ranks(ranks):
     data = io.StringIO(ranks.text)
     df = pd.read_csv(data, header=None)
-    gov_counts = df[8].value_counts()
+    # Filter out countries where column 14 is 1 (vacation/deleted)
+    df_active = df[df[14] != 1]
+    gov_counts = df_active[8].value_counts()
     gov_identifier_count = pd.DataFrame(gov_counts).reset_index()
     gov_identifier_count.columns = ["Gov", "Quantity"]
     gov_identifier_count = gov_identifier_count.to_string(index=False)
@@ -70,3 +72,16 @@ def coop_info():
     start = "2026-02-04 00:00"
     end = "2026-04-04 23:59"
     return server_id, round, start, end
+
+
+def get_country_status_count(ranks):
+    """
+    Counts countries where last column is 0 (active) vs 1 (vacation/deleted).
+    """
+    data = io.StringIO(ranks.text)
+    df = pd.read_csv(data, header=None)
+
+    active_count = (df[14] == 0).sum()
+    vacation_count = (df[14] == 1).sum()
+
+    return {"human": active_count, "npc": vacation_count, "total": len(df)}
